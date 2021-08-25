@@ -32,7 +32,7 @@ RUN apt-get update \
 && rm -rf /var/lib/apt/lists/*
 
 # This will use port 631
-EXPOSE 631
+EXPOSE 631/tcp
 
 # We want a mount for these
 VOLUME /config
