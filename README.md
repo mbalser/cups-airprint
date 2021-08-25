@@ -1,6 +1,3 @@
-# Archived
-No further updates to the repository will be made at this time. Please see the _forks_ for any possible solutions to your specific use case.
-
 # <a name="toc"></a> Table of Contents
 * [About](#about)
 * [Intro](#intro)
@@ -20,12 +17,14 @@ No further updates to the repository will be made at this time. Please see the _
 
 # <a name="about"></a> [About](#toc)
 Modified copy of source code at:
-https://github.com/quadportnick/docker-cups-airprint
+https://github.com/RagingTiger/cups-airprint
 
 # <a name="intro"></a> [Intro](#toc)
 This Ubuntu-based Docker image runs a CUPS instance that is meant as an AirPrint
 relay for printers that are already on the network but not AirPrint capable.
-The local Avahi will be utilized for advertising the printers on the network.
+The local Avahi will be utilized for advertising the printers on the network,
+or a separate avahi container (e.g. https://hub.docker.com/r/ydkn/avahi / https://gitlab.com/ydkn/docker-avahi)
+can be used.
 
 # <a name="multi-arch"></a> [Multi-arch Image](#toc)
 The below commands reference a
@@ -204,3 +203,15 @@ two choices to resolve:
 + Download driver **DIRECTLY** from the manufacturer and add it to the image
   + If building a fresh image does not update the version of the driver, then
     you will need the most recent printer driver from the manufacturer.
+
+### <a name="avahi"></a> [Avahi](#toc)
+Edit the avahi config file (either on the host or in a avahi container):
+```
+nano /etc/avahi/avahi-daemon.conf
+
+Change #enable-reflector=no to enable-reflector=yes
+```
+Afterwards, restart the avahi daemon on host using
+```
+systemctl restart avahi-daemon.service
+```
