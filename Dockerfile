@@ -26,6 +26,7 @@ RUN apt-get update \
 	hp-ppd \
 	python3-cups \
 	cups-backend-bjnp \
+	ghostscript \
 && rm -rf /var/lib/apt/lists/*
 
 # This will use port 631
