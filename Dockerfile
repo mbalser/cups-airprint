@@ -27,6 +27,8 @@ RUN apt-get update \
 	python3-cups \
 	cups-backend-bjnp \
 	ghostscript \
+	avahi-utils \
+	net-tools \
 && rm -rf /var/lib/apt/lists/*
 
 # This will use port 631
