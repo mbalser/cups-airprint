@@ -1,12 +1,18 @@
 # base image
-FROM ubuntu:xenial
+FROM ubuntu:focal
 
 # label with HEAD commit if given
+ARG TIMEZONE=UTC
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install the packages we need. Avahi will be included
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && ln -fs /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
+    && apt-get install -y --no-install-recommends tzdata \
+    && apt-get install -y \
 	cups \
 	cups-pdf \
   	cups-bsd \
@@ -18,7 +24,7 @@ RUN apt-get update && apt-get install -y \
 	openprinting-ppds \
 	hpijs-ppds \
 	hp-ppd \
-	python-cups \
+	python3-cups \
 	cups-backend-bjnp \
 && rm -rf /var/lib/apt/lists/*
 
